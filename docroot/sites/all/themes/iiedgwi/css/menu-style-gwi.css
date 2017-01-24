@@ -1,0 +1,207 @@
+.sf-menu > li > ul {
+    left: 0;
+    padding-top: 0 !important;
+    position: absolute;
+   /* top: 40px !important;*/
+    width: auto;
+    z-index: 2;
+    margin-top: 10px !important;
+    border: 1px solid #cecece;
+}
+
+.menu-shadow{
+
+  }
+
+.sf-menu ul ul {
+	margin: 0;
+	padding-top: 0 !important;
+	z-index: 1;
+    width: 250px;
+}
+
+#menu-wrapper .sf-menu > li a.sf-depth-1 {
+    padding: 7px 35px;
+}
+
+.sf-menu.sf-style-blue > li ul ul li a{
+	white-space: normal;
+}
+
+.sf-menu.sf-style-blue {
+  float: left;
+  margin-bottom: 1em;
+  padding: 0;
+}
+.sf-menu.sf-style-blue.sf-navbar {
+  width: 100%;
+}
+.sf-menu.sf-style-blue ul {
+  padding-left: 0;
+}
+.sf-menu.sf-style-blue a {
+    border: medium none;
+    border-radius: 0 0 0 0;
+    color: #313131;
+    display: block;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sf-menu.sf-style-blue a.sf-depth-1 > .sf-sub-indicator {
+	display: none; 
+}
+
+.sf-menu.sf-style-blue > li > ul:before {
+    border-color: transparent transparent #cdd0b3;
+    border-style: solid;
+    border-width: 0 14px 14px;
+    content: "";
+    height: 0;
+    left: 30px;
+    margin-left: -14px;
+    position: absolute;
+    top: -13px;
+    width: 0;
+    z-index: 1010;
+}
+
+.sf-menu li li:hover > ul, .sf-menu li li.sfHover > ul{
+	left: 100%;
+}
+
+.sf-menu.sf-style-blue li li a{
+    border-color: #cdd0b3;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px 30px 10px 10px;
+    text-align: left;
+    border-radius: 0;
+    font-size: 13px;
+}
+
+.sf-menu.sf-style-blue > li ul{
+	border-radius: 0;
+}
+
+.sf-menu.sf-style-blue li li a {
+	color: #4d8d3f;
+}
+
+.sf-menu.sf-style-blue a.sf-with-ul {
+  padding-right: 2.25em;
+}
+.sf-menu.sf-style-blue.rtl a.sf-with-ul {
+  padding-left: 2.25em;
+  padding-right: 1em;
+}
+.sf-menu.sf-style-blue.sf-navbar a {
+  border: 0;
+}
+
+
+
+.sf-menu.sf-style-blue span.sf-description {
+	color: #313131;
+	display: block;
+	font-size: 0.8em;
+	line-height: 1.5em;
+	margin: 5px 0 0 5px;
+	padding: 0;
+}
+.sf-menu.sf-style-blue li,
+.sf-menu.sf-style-blue.sf-navbar {
+  background: transparent;
+  border: transparent;
+}
+.sf-menu.sf-style-blue li li a{
+	background-color: #CDD0B3;
+}
+
+.sf-menu.sf-style-blue li li li a{
+	background-color: #CDD0B3;
+}
+
+.sf-menu.sf-style-blue li:hover,
+.sf-menu.sf-style-blue li.sfHover,
+.sf-menu.sf-style-blue li.active a,
+.sf-menu.sf-style-blue a:focus,
+.sf-menu.sf-style-blue a:hover,
+.sf-menu.sf-style-blue a:active,
+.sf-menu .sfHover a{
+	background-color: #CDD0B3;
+	color: #4d8d3f;
+}
+
+.sf-menu.sf-style-blue li li:hover,
+.sf-menu.sf-style-blue li li.sfHover,
+.sf-menu.sf-style-blue li li.active a,
+.sf-menu.sf-style-blue li li a:focus,
+.sf-menu.sf-style-blue li li a:hover,
+.sf-menu.sf-style-blue li li a:active{
+	background-color: #B2B68A;
+}
+
+.sf-menu.sf-style-blue.sf-navbar li ul {
+	background-color: #CDD0B3;
+}
+.sf-menu.sf-style-blue.sf-navbar li ul li ul {
+  background-color: transparent;
+}
+.sf-menu.sf-style-blue ul.sf-megamenu li.sf-megamenu-wrapper ol,
+.sf-menu.sf-style-blue ul.sf-megamenu li.sf-megamenu-wrapper ol li {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.sf-menu.sf-style-blue ul.sf-megamenu li.sf-megamenu-wrapper a.menuparent {
+  font-weight: bold;
+}
+.sf-menu.sf-style-blue ul.sf-megamenu li.sf-megamenu-wrapper ol li.sf-megamenu-column {
+  display: inline;
+  float: left;
+  width: 12em;
+}
+.sf-menu.sf-style-blue.rtl ul.sf-megamenu li.sf-megamenu-wrapper ol li.sf-megamenu-column {
+  float: right;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-1 ul.sf-megamenu {
+  width: 12em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-2 ul.sf-megamenu {
+  width: 24em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-3 ul.sf-megamenu {
+  width: 36em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-4 ul.sf-megamenu {
+  width: 48em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-5 ul.sf-megamenu {
+  width: 60em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-6 ul.sf-megamenu {
+  width: 72em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-7 ul.sf-megamenu {
+  width: 84em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-8 ul.sf-megamenu {
+  width: 96em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-9 ul.sf-megamenu {
+  width: 108em;
+}
+.sf-menu.sf-style-blue li.sf-parent-children-10 ul.sf-megamenu {
+  width: 120em;
+}
+
+.sf-menu.sf-horizontal.sf-shadow ul, .sf-menu.sf-vertical.sf-shadow ul, .sf-menu.sf-navbar.sf-shadow ul ul{
+	padding: inherit !important;
+	border-radius: 0 0 0 0;
+}

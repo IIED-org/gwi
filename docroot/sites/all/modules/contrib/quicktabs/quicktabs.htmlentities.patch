@@ -1,0 +1,13 @@
+Index: sites/all/modules/contrib/quicktabs/quicktabs.classes.inc
+===================================================================
+--- sites/all/modules/contrib/quicktabs/quicktabs.classes.inc	(revision 7481)
++++ sites/all/modules/contrib/quicktabs/quicktabs.classes.inc	(working copy)
+@@ -473,7 +473,7 @@ class QuickPreRenderedContent implements
+     }
+     $this->rendered_content = $contents;
+ 
+-    $this->title = isset($item['title']) ? $item['title'] : '';
++    $this->title = isset($item['title']) ? html_entity_decode($item['title']) : '';
+   }
+   
+   /**

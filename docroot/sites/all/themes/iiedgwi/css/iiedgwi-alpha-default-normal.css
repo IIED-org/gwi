@@ -1,0 +1,41 @@
+/* This file will hold styles that are loaded using the same media query as the normal grid. */
+/* If you are using the default media queries provided by Omega, these styles will also
+ *  apply to the widescreen layout unless they are overridden by the widescreen styles. */
+ 
+@media (min-width: 980px){
+
+	 .field-name-field-featured-image img{
+		 width: 460px;
+		 height: auto;
+	 }
+	 	 
+	 .flexslider .slider-caption {
+
+
+    }
+    
+    .flexslider .slider-caption p{
+	    padding-top: 20px;
+    }
+
+}
+
+.onecol {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.col2-grid .views-column {
+	margin: 0 20px 20px 0;
+	width: 47%;
+}
+
+.views-column-first {
+	clear: left;
+}
+
+/* Pubs pages */
+
+.ds-3col-stacked-fluid.group-two-sidebars > .group-middle {
+    width: 47%;
+}

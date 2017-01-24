@@ -1,0 +1,16 @@
+<?php
+ /**
+Customize the search form
+*/
+function gwi_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'search_block_form') {
+	$defText = t('Search our site and library');
+  // Set a default value for text inside the search box field.
+ 	$form['search_block_form']['#default_value'] = $defText;
+ 	$form['search_block_form']['#value'] = $defText;
+ 	$form['search_block_form']['#attributes']['placeholder'] = "Hello";
+    $form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = $defText;}";
+    $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == $defText) {this.value = '';}";
+  }
+}
+?>

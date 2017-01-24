@@ -1,0 +1,153 @@
+/* This file will hold styles that are loaded using the same media query as the narrow grid. */
+/* If you are using the default media queries provided by Omega, these styles will also
+ *  apply to the normal and widescreen layouts. You may override these styles in the normal 
+ *  and widescreen CSS files as appropriate. */
+ 
+@media (min-width: 740px) and (max-width: 979px){
+
+/* phase 2 styling */
+.themebox-image {
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 99px;
+}
+
+.themebox-text {
+    font-size: 12px;
+    margin-left: 90px;
+    margin-top: 15px;
+    width: 224px;
+}
+
+.sf-menu.sf-style-blue a {
+    width: 98px;
+}
+
+.sf-menu li:hover > ul, .sf-menu li.sfHover > ul {
+    left: -25px;
+}
+
+.partner-logo-block {
+    height: 47px;
+    width: 132px;
+}
+
+#zone-postscript #region-postscript-third .block img {
+    height: auto !important;
+    width: 130px !important;
+}
+
+.front h1#page-title,
+#zone-postscript h2.block-title {
+    width: 340px;
+}
+
+.site-slogan {
+    font-size: 1.38em;
+    font-weight: normal;
+}
+
+.themebox-title {
+	font-size: 1.2em;
+}
+
+/* Phase 1 styling */
+
+
+	h1.site-name, h2.site-name {
+    	font-size: 24px;
+    }
+
+	nav.navigation #main-menu li a {
+	    font-size: 0.87em;
+	    padding: 10px 0;
+	    width: 135px;
+    }
+    
+   .flexslider .slider-title{
+	    bottom: 190px;
+	    font-size: 1.1em;
+	    width: 212px;
+	}
+
+	 .field-name-field-featured-image img{
+		 width: 340px;
+		 height: auto;
+	 }
+	 
+	 .flexslider .slider-caption {
+	    padding: 0 3%;
+	    width: 30%;
+		font-size: 0.95em;	
+    }
+    
+    .flexslider .read-more-btn {
+	    height: 24px;
+	    padding: 8px 20px;
+	    width: 212px;
+	}
+    
+    .flexslider .slider-caption p{
+	    padding-top: 13px;
+    }
+    
+    #quicktabs-themes_topics ul.quicktabs-tabs li a {
+    font-size: 0.73em;
+    height: 35px;
+   }
+   
+   .tabbed-copy-wrapper {
+    float: left;
+    padding-bottom: 20px;
+    width: 245px;
+}
+
+.tabbed-image img {
+    height: auto;
+    width: 225px !important;
+    margin-top: 20px;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 0 1px #888;	
+}
+
+#zone-postscript .block img{
+	height: auto !important;
+    width: 170px !important;
+}
+    
+    ul.tabbed-list{
+	    font-size: 0.9em;
+    }
+    
+    .tabbed-image img {
+	    height: auto;
+	    width: 270px;
+	}
+	
+	#footer-sitemap ul li{
+		width: auto;
+	}
+	
+	#block-search-form input.form-text{
+		width: 160px;
+	}
+	
+	#region-content .field-name-field-main-banner-image img {
+	    height: auto;
+	    width: 100%;
+	}
+	
+	#map_canvas{
+		 width: 100% !important;
+	}
+	
+	#block-views-sample-slideshow-block-1{
+	height: 286px;
+}
+	
+ }
+ 
+ 
+ 

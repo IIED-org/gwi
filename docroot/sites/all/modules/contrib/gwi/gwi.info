@@ -1,0 +1,3 @@
+name = gwi functions
+description = Misc functions for GWI site
+core = 7.x

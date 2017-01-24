@@ -1,0 +1,342 @@
+/**
+ * @file
+ * CSS file for OpenLayers dark theme.
+ *
+ * We include the default styles, then add
+ * some specificity to override certain elements
+ * like image references.
+ */
+
+@import url("openlayers_style.css");
+
+.openlayers-map .olControlOverviewMapExtentRectangle {
+    background-image: url("img/blank.gif");
+}
+.openlayers-map .olControlZoomPanel div {
+    background-image: url("img/zoom-panel.png");
+}
+.openlayers-map .olControlNavToolbar div,
+.openlayers-map .olControlEditingToolbar div {
+    background-image: url("img/editing_tool_bar.png");
+}
+
+.olControlZoomPanel .olControlZoomOutItemInactive {
+    background-position: 0 18px;
+    left: 0;
+    top: 36px;
+}
+
+.openlayers-map .olControlZoomPanel div {
+    background-color: #FFFFFF;
+    background-image: url("img/map-controls.png");
+    border: 1px solid #888888;
+    display: block;
+    height: 30px;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 30px;
+    z-index: 2;
+  }
+
+.olControlZoomPanel .olControlZoomOutItemInactive{
+   background-position:-61px -1px;
+   left: -5px;
+    top: -35px;
+  border-radius:3px 0 0 3px;
+  	-moz-border-radius:3px 0 0 3px;
+  		-o-border-radius:3px 0 0 3px;
+  			-webkit-border-radius:3px 0 0 3px;
+
+  }
+
+.olControlZoomPanel .olControlZoomInItemInactive{
+  background-position:-31px -1px;
+    left: 25px;
+    top: -35px;
+    border-radius:0 3px 3px 0;
+    	-moz-border-radius:0 3px 3px 0;
+    		-o-border-radius:0 3px 3px 0;
+    			-webkit-border-radius:0 3px 3px 0;
+  }
+  
+  .openlayers-map .olControlZoomPanel div.olControlZoomToMaxExtentItemInactive{
+	  display: none;
+  }
+
+/**
+ * A few custom styles
+ */
+.openlayers-popup {
+  color: #EEEEEE;
+}
+.olImageLoadError,
+.openlayers-map .olImageLoadError {
+  background-color: transparent;
+}
+
+/**
+ * CSS fix, see #1646646
+ */
+.dataLayersDiv input.olButton{
+	display: none;
+}
+
+.dataLayersDiv input[name="HEA reports"] + label{
+	background-image: url(../../images/map-assets/map-marker-hea_10x10.png);
+}
+
+.dataLayersDiv input[name="CoD reports"] + label{
+	background-image: url(../../images/map-assets/map-marker-cod_10x10.png);
+}
+
+.dataLayersDiv input[name="HEA & CoD"] + label{
+	background-image: url(../../images/map-assets/map-marker-codand_hea_14x14.png);
+}
+
+
+
+.dataLbl:after {
+    content: " KEY" !important;
+}
+
+.dataLbl{
+	text-transform: uppercase;
+}
+
+label.olButton {
+    cursor: pointer;
+    display: inline;
+    font-size: 1.2em;
+    font-weight: normal;
+    padding-left: 20px;
+    background-position: 0 center;
+    background-repeat: no-repeat;
+}
+
+.openlayers-tooltip-name,
+.openlayers-tooltip-description{
+	min-width: 120px;
+	max-width: 450px;
+}
+
+.openlayers-tooltip-description{
+	padding: 10px 0;
+}
+
+.openlayers-tooltip-description p {
+	color: #FFFFFF;
+}
+
+/**
+ * The following are images that are not in
+ * this theme (but should be).
+ */
+
+/*
+
+.openlayers-map .olControlOverviewMapRectReplacement {
+    background-image: url("img/overview_replacement.gif");
+}
+.openlayers-map .olControlNavigationHistory {
+    background-image: url("img/navigation_history.png");
+}
+.openlayers-map div.olControlSaveFeaturesItemActive {
+    background-image: url("img/save_features_on.png");
+}
+div.olControlSaveFeaturesItemInactive {
+    background-image: url("img/save_features_off.png");
+}
+.openlayers-map .olControlPanPanel div {
+    background-image: url("img/pan-panel.png");
+}
+.openlayers-map .olPopupCloseBox {
+    background: url("img/close.gif") no-repeat scroll 0 0 transparent;
+}
+
+
+*/
+
+#popup{
+  /*  min-width: 400px;*/
+  font-size: 0.9em;
+}
+
+#popup_FrameDecorationDiv_0{
+	border-radius: 6px 0 0 0;
+}
+#popup_FrameDecorationDiv_1{
+	border-radius: 0px 6px 0 0;
+}
+#popup_FrameDecorationDiv_2{
+	border-radius: 0px 0 0 6px;
+}
+#popup_FrameDecorationDiv_3{
+	border-radius: 0px 0 6px 0;
+}
+
+#OpenLayers\.Map_2_events {
+    width: 400px !important;
+    height: 260px !important;
+}
+
+#popup a.readmore{
+    background-color: #252F3D;
+    border-radius: 0 0 0 0;
+    bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF !important;
+    display: block;
+    float: left;
+    font-size: 0.75em;
+    margin-top: 9px;
+    padding: 6px 12px 5px;
+    position: absolute;
+    right: 10px;
+    text-transform: uppercase;
+}
+
+#popup a.readmore:hover{
+	background-color: 
+}
+
+#popup a{
+	color: #FFFFFF !important;
+	text-shadow: none;
+}
+
+#popup a:hover{
+	color: #E2E2E2 !important;
+}
+
+
+#popup .openlayers-tooltip-name a{
+    display: block;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: -6px 0 4px -5px;
+    padding: 3px 0 0 5px;
+    text-align: center;
+    text-shadow: 0 1px 0 #534132;
+    text-transform: uppercase;
+}
+
+#popup .related-country-link {
+    background-color: transparent;
+    background-image: url("img/map-popup-border_200x1.png");
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    border-left: 1px solid #FFFFFF;
+    bottom: 0;
+    display: block;
+    left: 5px;
+    margin: 8px 0 8px -5px;
+    padding: 0 0 5px 5px;
+    position: absolute;
+    text-align: left;
+    width: 200px;
+}
+
+#popup .report-standfirst {
+    padding-left: 6px;
+}
+
+.openlayers-views-map image, .openlayers-views-map path{
+	cursor: pointer;
+}
+
+/*
+#popup {
+    background-color: rgba(0, 0, 0, 0.65);
+    border-color: #333333 #111111 #111111 #333333;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    height: 260px !important;
+    
+    left: 100px !important;
+    position: absolute !important;
+    top: -4px !important;
+    
+    width: 400px !important;
+    
+        box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+   		-moz-box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+   			-webkit-box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+   				-o-box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.5);
+   				
+}
+
+
+#popup #popup_contentDiv {
+    height: 240px !important;
+    padding: 0;
+
+    width: 380px !important;
+    
+    top: 10px !important;
+    left: 10px !important;
+    
+}
+
+
+
+.openlayers-popup.openlayers-tooltip-name {
+    height: 50px;
+    margin-bottom: 5px;
+    width: 355px;
+}
+
+
+
+.openlayers-tooltip-description {
+    height: 185px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+#popup img{
+	display: none;
+}
+
+
+
+*/
+
+/*
+#popup_FrameDecorationDiv_0 img,
+#popup_FrameDecorationDiv_2 img,
+#popup_FrameDecorationDiv_1 img,
+#popup_FrameDecorationDiv_4 img{
+	display: none;
+}
+
+
+
+#popup {
+    background-image: url("../../images/map-assets/popup-background_210x120.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    height: 120px !important;
+    width: 210px !important;
+}
+
+*/
+
+.olPopupCloseBox {
+    background: url("img/map-popup-close.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 25px !important;
+    width: 25px !important;
+}
+
+
