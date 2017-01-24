@@ -537,7 +537,7 @@ if (file_exists('/var/www/site-php')) {
 // Add memcache
 
 if (isset($conf['memcache_servers'])) {
-  $conf['cache_backends'][] = './sites/all/modules/memcache/memcache.inc';
+  $conf['cache_backends'][] = './sites/all/modules/contrib/memcache/memcache.inc';
   $conf['cache_default_class'] = 'MemCacheDrupal';
   $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
 }
