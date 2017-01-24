@@ -52,3 +52,14 @@ function file_force_update_7000() {
     }
   }
 }
+
+/**
+ * Update module weight for D6 upgrades.
+ */
+function file_force_update_7001() {
+  $update = db_update('system')
+    ->condition('name', 'file_force')
+    ->condition('type', 'module')
+    ->fields(array('weight' => 10))
+    ->execute();
+}

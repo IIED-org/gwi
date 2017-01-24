@@ -23,7 +23,8 @@ function slp_default() {
       $directory . "/superfish.js\n" .
       $directory . "/supersubs.js\n" .
       $directory . "/supposition.js\n" .
-      $directory . "/sftouchscreen.js";
+      $directory . "/sftouchscreen.js\n" .
+      $directory . "/sfsmallscreen.js";
   }
   else {
     $output = '';

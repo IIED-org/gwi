@@ -62,8 +62,12 @@ class JobScheduler {
    *   An array that must contain the following keys:
    *   'type'     - A string identifier of the type of job.
    *   'id'       - A numeric identifier of the job.
-   *   'period'   - The time when the task should be executed.
    *   'periodic' - True if the task should be repeated periodically.
+   *
+   *   The array must also contain one of the following keys:
+   *   'period'  - The time when the task should be executed.
+   *   'crontab' - A crontab entry which describes the times a task should be
+   *               executed.
    *
    * @code
    * function worker_callback($job) {
@@ -166,6 +170,9 @@ class JobScheduler {
     if ($job['periodic']) {
       $job['last'] = REQUEST_TIME;
       $this->reschedule($job);
+    }
+    if (!empty($info['file']) && file_exists($info['file'])) {
+      include_once $info['file'];
     }
     if (function_exists($info['worker callback'])) {
       call_user_func($info['worker callback'], $job);

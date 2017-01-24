@@ -8,7 +8,7 @@
 /**
  * The Superfish plugin URI.
  */
-define('SUPERFISH_DOWNLOAD_URI', 'https://github.com/mehrpadin/Superfish-for-Drupal/zipball/master');
+define('SUPERFISH_DOWNLOAD_URI', 'https://github.com/mehrpadin/Superfish-for-Drupal/archive/1.x.zip');
 
 /**
  * Implements hook_drush_command().
@@ -65,10 +65,6 @@ function superfish_drush_help($section) {
  * Command to download the Superfish plugin.
  */
 function drush_superfish_plugin() {
-  if (!drush_shell_exec('type unzip')) {
-    return drush_set_error(dt('Missing dependency: unzip. Install it before using this command.'));
-  }
-
   $args = func_get_args();
   if (!empty($args[0])) {
     $path = $args[0];
@@ -87,39 +83,35 @@ function drush_superfish_plugin() {
   $olddir = getcwd();
   chdir($path);
 
-  $filename = basename(SUPERFISH_DOWNLOAD_URI) . '.zip';
-  $dirname = 'superfish';
-
-  // Remove any existing Superfish plugin directory
-  if (is_dir($dirname)) {
-    drush_log(dt('A existing Superfish plugin was overwritten at @path', array('@path' => $path)), 'notice');
-  }
-  // Remove any existing Superfish plugin zip archive
-  if (is_file($filename)) {
-    drush_op('unlink', $filename);
-  }
-
   // Download the zip archive
-  if (!drush_shell_exec('wget ' . SUPERFISH_DOWNLOAD_URI . ' -O ' . $filename)) {
-    drush_shell_exec('curl -O ' . SUPERFISH_DOWNLOAD_URI);
+  if ($filepath = drush_download_file(SUPERFISH_DOWNLOAD_URI)) {
+    $filename = basename($filepath);
+    $dirname = 'Superfish-for-Drupal-' . basename($filepath, '.zip');
+
+    // Remove any existing Superfish plugin directory
+    if (is_dir($dirname) || is_dir('superfish')) {
+      drush_delete_dir($dirname, TRUE);
+      drush_delete_dir('superfish', TRUE);
+      drush_log(dt('A existing Superfish plugin was deleted from @path', array('@path' => $path)), 'notice');
+    }
+
+    // Decompress the zip archive
+    drush_tarball_extract($filename);
+
+    // Change the directory name to "superfish" if needed.
+    if ($dirname != 'superfish') {
+      drush_move_dir($dirname, 'superfish', TRUE);
+      $dirname = 'superfish';
+    }
   }
 
-  if (is_file($filename)) {
-    // Decompress the zip archive
-    drush_shell_exec('unzip -qq -o ' . $filename);
-    // Rename directory
-    drush_shell_exec('mv mehrpadin-Superfish-for-Drupal-* ' . $dirname);
-    // Remove the zip archive
-    drush_op('unlink', $filename);
+  if (is_dir($dirname)) {
+    drush_log(dt('Superfish plugin has been uploaded to @path', array('@path' => $path)), 'success');
+  }
+  else {
+    drush_log(dt('Drush was unable to upload the Superfish plugin to @path', array('@path' => $path)), 'error');
   }
 
   // Set working directory back to the previous working directory.
   chdir($olddir);
-
-  if (is_dir($path . '/' . $dirname)) {
-    drush_log(dt('Superfish plugin has been downloaded to @path', array('@path' => $path)), 'success');
-  }
-  else {
-    drush_log(dt('Drush was unable to download the Superfish plugin to @path', array('@path' => $path)), 'error');
-  }
 }

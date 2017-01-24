@@ -25,7 +25,13 @@ Usage - Manual
 
  * With the "Public" download method enabled by default, you will need to make sure that the File Force
  link is going through Drupal by passing it through file_force_create_url() first, e.g. l('linktext',
- file_force_create_url($image['filepath']), array('query' => array('download' => '1'))).
+ file_force_create_url($image['filepath'], FALSE), array('query' => array('download' => '1'))).
+ 
+ * The file_force_create_url method will return an URL with the 'download=1' query appended to it by default.
+ This behaviour can be altered by setting its second parameter to FALSE.
+ 
+ * Setting 'download' to '1' will result in download being forced, while setting it to '0' will force the item to 
+ be displayed inline.
 
 
 Supported Modules

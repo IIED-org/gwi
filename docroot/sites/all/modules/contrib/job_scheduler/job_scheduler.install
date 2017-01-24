@@ -5,6 +5,14 @@
  * Schema definitions install/update/uninstall hooks.
  */
 
+/*
+ * Implementation hook_uninstall().
+ */
+function job_scheduler_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE :name", array(':name' => 'job_scheduler_class_%'));
+  variable_del('job_scheduler_rebuild_all');
+}
+
 /**
  * Implements hook_schema().
  */
@@ -66,12 +74,6 @@ function job_scheduler_schema() {
         'not null' => TRUE,
         'default' => 0,
         'description' => 'Timestamp when job expires.',
-      ),
-      'created' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => 'Timestamp when the item was created.',
       ),
       'last' => array(
         'type' => 'int',
@@ -177,4 +179,13 @@ function job_scheduler_update_7101() {
     'description' => 'Primary Key: Unique item ID.',
   );
   db_add_field('job_schedule', 'item_id', $spec, array('primary key' => array('item_id')));
+}
+
+/**
+ * Drop field: created.
+ */
+function job_scheduler_update_7102() {
+  if (db_field_exists('job_schedule', 'created')) {
+    db_drop_field('job_schedule', 'created');
+  }
 }

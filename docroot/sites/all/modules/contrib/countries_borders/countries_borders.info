@@ -6,9 +6,9 @@ core = 7.x
 dependencies[] = countries
 dependencies[] = geofield
 
-; Information added by drupal.org packaging script on 2012-08-16
+; Information added by drupal.org packaging script on 2013-09-30
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "countries_borders"
-datestamp = "1345119118"
+datestamp = "1380567788"
 

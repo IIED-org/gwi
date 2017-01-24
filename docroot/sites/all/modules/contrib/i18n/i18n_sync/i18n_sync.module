@@ -11,8 +11,6 @@
  *
  * Notes:
  * This module needs to run after taxonomy, i18n, translation. Check module weight.
- *
- * @ TODO Test with CCK when possible, api may have changed.
  */
 
 /**

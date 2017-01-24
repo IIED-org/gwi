@@ -1,3 +1,26 @@
+Version 1.9, 2013-04-27
+----------------------
+- #1967182 Added a Drush Make file.
+- #1496946 Fixed a bug in hook_requirements.
+- Chanaged the Drush command; used the Colorbox module Drush command.
+- Fixed some bugs.
+
+Version 1.9-rc1, 2013-04-10
+----------------------
+- #1158926 Fixed hook_requirements; limited it to runtime phase.
+- #1420930 Added sf-Smallscreen for small-screen compatibility.
+- #1279760 Added new features to sf-Touchscreen.
+- #1141858 Changed the Style default value to 'None'.
+- #1937806 Changed the Menu Parent default value to Main Menu.
+- #1842966 Added a theme for menu items.
+- #1612498 Improved the block configuration form validation.
+- #1347712 Changed the way the JavaScript and CSS files were being added.
+- #764984 Added support for the jQuery Easing plugin.
+- #869998 Fixed incompatibility issues with the Context module.
+- General block configuration form imporvements.
+- Added 'administer superfish' permission.
+- Fixed the <front> and active-trail bug.
+
 Version 1.9-beta5, 2012-10-25
 ----------------------
 - #804616 Fixed speed value and validation bugs. (Comments 8th and 10th)

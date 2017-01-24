@@ -10,7 +10,7 @@
  */
 function file_force_menu() {
   $items = array();
-  
+
   $items['system/files_force'] = array(
     'title' => 'File Force Download',
     'page callback' => 'file_download',
@@ -18,7 +18,7 @@ function file_force_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  
+
   return $items;
 }
 
@@ -49,12 +49,66 @@ function file_force_theme() {
 function file_force_file_download($uri) {
   if (!isset($_GET['download'])) {
     // Our menu hook wasn't called, so we should ignore this.
-    return NULL;
+    return FALSE;
+  }
+
+  if ($_GET['download'] == 1) {
+    $disposition = 'attachment';
+  } elseif ($_GET['download'] == 0) {
+    $disposition = 'inline';
+  } else {
+    // We only use 1 and 0.
+	  return FALSE;
+  }
+
+  $scheme = file_uri_scheme($uri);
+  if ($scheme == 'private') {
+    // Check with all other modules if the file is allowed for the download
+    $headers = array();
+    foreach (module_implements('file_download') as $module) {
+      if ($module == 'file_force') {
+        continue; // Do not call ourselves.
+      }
+      $function = $module . '_file_download';
+      $result = $function($uri);
+      if ($result == -1) {
+        // Throw away the headers received so far.
+        $headers = array();
+        break;
+      }
+      if (isset($result) && is_array($result)) {
+        $headers = array_merge($headers, $result);
+      }
+    }
+    if (!count($headers)) {
+      return FALSE;
+    }
+  }
+
+  // Attempt to give the file its original name (as stored in {file_managed}.filename), like file_file_download() does.
+  // Get the file record based on the URI. If not in the database just return.
+  $files = file_load_multiple(array(), array('uri' => $uri));
+  if (count($files)) {
+    foreach ($files as $item) {
+      // Since some database servers sometimes use a case-insensitive comparison
+      // by default, double check that the filename is an exact match.
+      if ($item->uri === $uri) {
+        $file = $item;
+        break;
+      }
+    }
+  }
+  if (isset($file)) {
+    $name = $file->filename;
+  }
+  else {
+    // Use uri for the name if file record is not found.
+    $name = basename($uri);
   }
 
   // Return a list of headers that will force the download
   return array(
-    'Content-Disposition' => 'attachment; filename="' . basename($uri) . '"',
+    'Content-Disposition' => $disposition . '; filename="' . mime_header_encode($name) . '"',
   );
 }
 
@@ -109,7 +163,7 @@ function file_force_field_formatter_view($entity_type, $entity, $field, $instanc
 
     case 'file_force_file_url_plain':
       foreach ($items as $delta => $item) {
-        $element[$delta] = array('#markup' => empty($item['uri']) ? '' : file_force_create_url($item['uri']) . $separator . 'download=1');
+        $element[$delta] = array('#markup' => file_force_create_url($item['uri']));
       }
       break;
 
@@ -128,14 +182,14 @@ function file_force_field_formatter_view($entity_type, $entity, $field, $instanc
 
       foreach ($items as $delta => $item) {
         $uri = array(
-          'path' => file_force_create_url($item['uri']),
+          'path' => file_force_create_url($item['uri'], FALSE),
           'options' => array('query' => array('download' => '1')),
         );
         $element[$delta] = array(
           '#theme' => 'image_formatter',
           '#item' => $item,
           '#image_style' => $display['settings']['image_style'],
-          '#path' => isset($uri) ? $uri : '',
+          '#path' => $uri,
         );
       }
       break;
@@ -195,11 +249,29 @@ function file_force_field_formatter_settings_summary($field, $instance, $view_mo
 
 /**
  * Simplified version of the default file_create_url method to avoid private download method dependency.
+ *
+ * @param $path
+ *   String, file uri
+ * @param $add_query
+ *   Boolean, add a query (pass FALSE if url will be appended with download=1 query)
+ * @return
+ *   String, file url
  */
-function file_force_create_url($path) {
+function file_force_create_url($path, $add_query = TRUE) {
+  if (empty($path)) {
+    return '';
+  }
   $scheme = file_uri_scheme($path);
   if ($scheme == 'public') {
-    return file_create_url('system/files_force/' . file_uri_target($path));
+    $url = file_create_url('system/files_force/' . file_uri_target($path));
   }
-  return file_create_url($path);
+  else {
+    $url = file_create_url($path);
+  }
+  if ($add_query) {
+    // '&' for private uploads in non-clean URLs. Public downloads or clean URLs need '?' as there is no query.
+    $separator = (variable_get('clean_url', FALSE) || ($scheme == 'public')) ? '?' : '&';
+    $url .= $separator . 'download=1';
+  }
+  return $url;
 }

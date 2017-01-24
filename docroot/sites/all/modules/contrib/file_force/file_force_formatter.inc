@@ -21,7 +21,7 @@ function theme_file_force_file_link($variables) {
   $file = $variables['file'];
   $icon_directory = $variables['icon_directory'];
 
-  $url = file_force_create_url($file->uri);
+  $url = file_force_create_url($file->uri, FALSE);
   $icon = theme('file_icon', array('file' => $file, 'icon_directory' => $icon_directory));
 
   // Set options as per anchor format described at
