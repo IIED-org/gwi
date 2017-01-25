@@ -57,10 +57,10 @@ DirectoryIndex index.php index.html index.htm
   RewriteEngine on
 
  # Set protocol to https 
-  RewriteCond %{HTTPS} off
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteCond %{ENV:AH_SITE_ENVIRONMENT} prod
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+ # RewriteCond %{HTTPS} off
+ # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+ # RewriteCond %{ENV:AH_SITE_ENVIRONMENT} prod
+ # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
@@ -96,10 +96,10 @@ DirectoryIndex index.php index.html index.htm
   # (http://example.com/... will be redirected to http://www.example.com/...)
   # uncomment the following:
 
-   RewriteCond %{HTTP_HOST} .
-   RewriteCond %{HTTP_HOST} !^www\. [NC]
-   RewriteCond %{ENV:AH_SITE_ENVIRONMENT} prod
-   RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # RewriteCond %{HTTP_HOST} .
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteCond %{ENV:AH_SITE_ENVIRONMENT} prod
+  # RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   #
   # To redirect all users to access the site WITHOUT the 'www.' prefix,
