@@ -2089,6 +2089,11 @@ ul.resoucres-list li .entity-field-collection-item > .content{
 	padding-bottom: 20px;
 }
 
+.node-type-document .field-type-file .field-item { 
+  display: block; 
+  margin-bottom: 0.5em;
+}
+
 /* Cover images */
 
 .views-field-field-cover-image img, .field-name-field-cover-image img {
