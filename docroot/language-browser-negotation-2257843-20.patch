@@ -1,0 +1,115 @@
+diff --git a/includes/locale.inc b/includes/locale.inc
+index c7f9583..7402dc5 100644
+--- a/includes/locale.inc
++++ b/includes/locale.inc
+@@ -129,6 +129,11 @@ function locale_language_from_interface() {
+  *   A valid language code on success, FALSE otherwise.
+  */
+ function locale_language_from_browser($languages) {
++
++  // Browser language detection is not compatible with page caching, ensure
++  // this page is not cached.
++  drupal_page_is_cacheable(FALSE);
++
+   if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+     return FALSE;
+   }
+diff --git a/modules/locale/locale.module b/modules/locale/locale.module
+index 768fead..b94f3ae 100644
+--- a/modules/locale/locale.module
++++ b/modules/locale/locale.module
+@@ -606,7 +606,6 @@ function locale_language_negotiation_info() {
+     'callbacks' => array('language' => 'locale_language_from_browser'),
+     'file' => $file,
+     'weight' => -2,
+-    'cache' => 0,
+     'name' => t('Browser'),
+     'description' => t("Determine the language from the browser's language settings."),
+   );
+diff --git a/modules/locale/locale.test b/modules/locale/locale.test
+index 9086587..680c40b 100644
+--- a/modules/locale/locale.test
++++ b/modules/locale/locale.test
+@@ -2431,6 +2431,45 @@ class LocaleUILanguageNegotiationTest extends DrupalWebTestCase {
+     }
+   }
+ 
++  /**
++   * Test browser negotation in combination with the page cache.
++   */
++  public function testPageCache() {
++    $language_browser_fallback = 'vi';
++    // For testing path prefix.
++    $language = 'zh-hans';
++
++    // Setup the site languages by installing two languages.
++    require_once DRUPAL_ROOT . '/includes/locale.inc';
++    locale_add_language($language_browser_fallback);
++    locale_add_language($language);
++
++    // Ensure that browser negotiation works when page cache is enabled.
++    $this->drupalLogout();
++    variable_set('cache', TRUE);
++    variable_set('locale_test_show_message', FALSE);
++    language_negotiation_set(LANGUAGE_TYPE_INTERFACE, array(LOCALE_LANGUAGE_NEGOTIATION_URL => 1, LOCALE_LANGUAGE_NEGOTIATION_BROWSER => 2));
++
++    $this->drupalGet('locale_test_current_language', array());
++    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
++    $this->assertText(t('Current language: @language', array('@language' => 'en')));
++
++    $this->drupalGet('locale_test_current_language', array(), array("Accept-Language: $language_browser_fallback;q=1"));
++    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
++    $this->assertText(t('Current language: @language', array('@language' => $language_browser_fallback)));
++
++    $this->drupalGet('locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
++    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
++    $this->assertText(t('Current language: @language', array('@language' => $language)));
++
++    // Make sure that page cache still works if browser based negotiation is not
++    // triggered.
++    $this->drupalGet($language . '/locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
++    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
++    $this->drupalGet($language . '/locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
++    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT');
++  }
++
+   private function runTest($test) {
+     if (!empty($test['language_negotiation'])) {
+       $negotiation = array_flip($test['language_negotiation']);
+diff --git a/modules/locale/tests/locale_test.module b/modules/locale/tests/locale_test.module
+index 64f4aed..82ca487 100644
+--- a/modules/locale/tests/locale_test.module
++++ b/modules/locale/tests/locale_test.module
+@@ -32,7 +32,7 @@ function locale_test_boot() {
+  */
+ function locale_test_init() {
+   locale_test_store_language_negotiation();
+-  if (isset($GLOBALS['language']) && isset($GLOBALS['language']->provider)) {
++  if (isset($GLOBALS['language']) && isset($GLOBALS['language']->provider) && variable_get('locale_test_show_message', TRUE)) {
+     drupal_set_message(t('Language negotiation provider: @name', array('@name' => $GLOBALS['language']->provider)));
+   }
+ }
+@@ -66,11 +66,23 @@ function locale_test_menu() {
+     'access callback' => TRUE,
+     'type' => MENU_CALLBACK,
+   );
++  $items['locale_test_current_language'] = array(
++    'page callback' => 'locale_test_current_language',
++    'access callback' => TRUE,
++    'type' => MENU_CALLBACK,
++  );
+ 
+   return $items;
+ }
+ 
+ /**
++ * Test output for language negotiation tests.
++ */
++function locale_test_current_language() {
++  return t('Current language: @language', array('@language' => $GLOBALS['language']->language));
++}
++
++/**
+  * Implements hook_language_types_info_alter().
+  */
+ function locale_test_language_types_info_alter(array &$language_types) {
