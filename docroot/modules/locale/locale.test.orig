@@ -2472,45 +2472,6 @@ class LocaleUILanguageNegotiationTest extends DrupalWebTestCase {
     }
   }
 
-  /**
-   * Test browser negotation in combination with the page cache.
-   */
-  public function testPageCache() {
-    $language_browser_fallback = 'vi';
-    // For testing path prefix.
-    $language = 'zh-hans';
-
-    // Setup the site languages by installing two languages.
-    require_once DRUPAL_ROOT . '/includes/locale.inc';
-    locale_add_language($language_browser_fallback);
-    locale_add_language($language);
-
-    // Ensure that browser negotiation works when page cache is enabled.
-    $this->drupalLogout();
-    variable_set('cache', TRUE);
-    variable_set('locale_test_show_message', FALSE);
-    language_negotiation_set(LANGUAGE_TYPE_INTERFACE, array(LOCALE_LANGUAGE_NEGOTIATION_URL => 1, LOCALE_LANGUAGE_NEGOTIATION_BROWSER => 2));
-
-    $this->drupalGet('locale_test_current_language', array());
-    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
-    $this->assertText(t('Current language: @language', array('@language' => 'en')));
-
-    $this->drupalGet('locale_test_current_language', array(), array("Accept-Language: $language_browser_fallback;q=1"));
-    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
-    $this->assertText(t('Current language: @language', array('@language' => $language_browser_fallback)));
-
-    $this->drupalGet('locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
-    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
-    $this->assertText(t('Current language: @language', array('@language' => $language)));
-
-    // Make sure that page cache still works if browser based negotiation is not
-    // triggered.
-    $this->drupalGet($language . '/locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
-    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'MISS');
-    $this->drupalGet($language . '/locale_test_current_language', array(), array("Accept-Language: $language;q=1"));
-    $this->assertEqual($this->drupalGetHeader('X-Drupal-Cache'), 'HIT');
-  }
-
   private function runTest($test) {
     if (!empty($test['language_negotiation'])) {
       $negotiation = array_flip($test['language_negotiation']);
