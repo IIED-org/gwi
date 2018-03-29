@@ -129,11 +129,6 @@ function locale_language_from_interface() {
  *   A valid language code on success, FALSE otherwise.
  */
 function locale_language_from_browser($languages) {
-
-  // Browser language detection is not compatible with page caching, ensure
-  // this page is not cached.
-  drupal_page_is_cacheable(FALSE);
-
   if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
     return FALSE;
   }
