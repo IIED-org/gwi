@@ -39,3 +39,20 @@
 .ds-3col-stacked-fluid.group-two-sidebars > .group-middle {
     width: 47%;
 }
+
+/* Cookie compliance banner */
+
+#sliding-popup .popup-content {
+  max-width: 90%;
+}
+#sliding-popup .popup-content #popup-text {
+  max-width: 75%;
+  line-height: 2em;
+}
+#sliding-popup .popup-content #popup-buttons {
+  margin-bottom: 0;
+  max-width: 25%;
+}
+#sliding-popup .popup-content #popup-buttons button {
+  margin-top: .5em !important;
+}
